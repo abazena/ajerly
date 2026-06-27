@@ -12,9 +12,10 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#F3F6F5",
     theme_color: "#0B4F4A",
     icons: [
-      { src: "/logos/ajerly-icon.png", sizes: "269x250", type: "image/png", purpose: "any" },
-      { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-      // ponytail: add 192/512 maskable PNG variants before App Store / Play submission.
+      { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
     ],
   };
 }

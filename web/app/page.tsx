@@ -264,7 +264,16 @@ export default function Landing() {
           <div className="pricing-copy">
             <h2>تسعير صريح</h2>
             <p>
-              بدون بطاقة. تفعّل اشتراكك بقسيمة من وكيلك أو من واتساب فريقنا.
+              بدون بطاقة. تفعّل اشتراكك بقسيمة من وكيلك أو من{" "}
+              <a
+                href="https://wa.me/218913984262"
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "var(--brand)", fontWeight: 700 }}
+              >
+                واتساب فريقنا
+              </a>
+              .
             </p>
             <ul>
               {PLAN_FEATURES.map((f) => (
