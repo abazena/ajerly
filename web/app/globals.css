@@ -213,7 +213,8 @@
   .seg-b.out.on{background:#fff;color:var(--expense);box-shadow:0 2px 6px rgba(0,0,0,.06)}
   .field{margin-bottom:15px}
   .field label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:7px}
-  .field input{width:100%;height:48px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#fff;transition:border .15s}
+  /* font-size 16px is the iOS Safari floor; lower values trigger auto-zoom on focus. */
+  .field input{width:100%;height:48px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);background:#fff;transition:border .15s}
   .field input::placeholder{color:var(--faint);font-weight:500}
   .field input:focus{outline:none;border-color:var(--brand)}
   .amount-wrap{position:relative}
@@ -280,7 +281,7 @@
   @media(max-width:360px){.strip{grid-template-columns:1fr 1fr}.strip .mini:last-child{grid-column:1/-1}}
 
   /* ============ ADDED: shared form/state helpers ============ */
-  .field select,.field textarea{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#fff}
+  .field select,.field textarea{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);background:#fff}
   .field select:focus,.field textarea:focus{outline:none;border-color:var(--brand)}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .btn.block,.save.block{width:100%;justify-content:center}
