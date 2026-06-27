@@ -10,17 +10,20 @@ const here = dirname(fileURLToPath(import.meta.url));
 const SRC = resolve(here, "../public/logos/ajerly-icon.png");
 const OUT_DIR = resolve(here, "../public/icons");
 const FAVICON = resolve(here, "../app/favicon.ico");
-const BRAND = { r: 11, g: 79, b: 74, alpha: 1 }; // #0B4F4A
+// Cream brand surface (--app-bg). The brand logo PNG is dark teal artwork
+// designed for a light background; on teal it disappears. Used by every icon
+// surface the OS shows the logo on (favicon, PWA, apple-touch).
+const CANVAS_BG = { r: 243, g: 246, b: 245, alpha: 1 }; // #F3F6F5
 
 mkdirSync(OUT_DIR, { recursive: true });
 
-const onBrandSquare = async (size, paddingPct = 0.28) => {
+const onBrandSquare = async (size, paddingPct = 0.20) => {
   const inner = Math.round(size * (1 - paddingPct));
   const logo = await sharp(SRC)
     .resize(inner, inner, { fit: "inside", kernel: "lanczos3" })
     .toBuffer();
   return sharp({
-    create: { width: size, height: size, channels: 4, background: BRAND },
+    create: { width: size, height: size, channels: 4, background: CANVAS_BG },
   })
     .composite([{ input: logo, gravity: "center" }])
     .png({ compressionLevel: 9 })
@@ -72,7 +75,6 @@ console.log(`wrote favicon.ico (${pngs.length} sizes: ${FAV_SIZES.join("/")})`);
 const WIDE = resolve(here, "../public/logos/ajerly-ver-logo.png");
 const OG = resolve(here, "../public/og.png");
 const OG_W = 1200, OG_H = 630;
-const OG_BG = { r: 243, g: 246, b: 245, alpha: 1 }; // #F3F6F5 (--app-bg)
 const LOGO_W = 760;
 
 const wideMeta = await sharp(WIDE).metadata();
@@ -91,7 +93,7 @@ const tagline = Buffer.from(`
   </text>
 </svg>`);
 
-await sharp({ create: { width: OG_W, height: OG_H, channels: 4, background: OG_BG } })
+await sharp({ create: { width: OG_W, height: OG_H, channels: 4, background: CANVAS_BG } })
   .composite([
     { input: logoBuf, left: Math.round((OG_W - LOGO_W) / 2), top: Math.round(OG_H / 2 - LOGO_H - 10) },
     { input: tagline, left: 0, top: Math.round(OG_H / 2 + 20) },
