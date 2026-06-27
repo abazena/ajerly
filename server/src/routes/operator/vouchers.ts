@@ -7,7 +7,7 @@ import { idParam } from "../../validators/common";
 import { Conflict, NotFound, Unauthorized } from "../../lib/errors";
 import { generateBatch } from "../../services/vouchers/generateBatch";
 import { recordAction } from "../../services/operator/auditLog";
-import { normalize } from "../../lib/voucherCode";
+import { normalize, format } from "../../lib/voucherCode";
 
 export const operatorVouchersRouter = Router();
 
@@ -66,7 +66,7 @@ operatorVouchersRouter.get(
       res.json({
         items: items.map((v) => ({
           _id: String(v._id),
-          code: v.code,
+          code: format(v.code),
           months: v.months,
           priceLyd: v.priceLyd ?? null,
           status: v.status,

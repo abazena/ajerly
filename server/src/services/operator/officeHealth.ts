@@ -4,6 +4,7 @@ import { User } from "../../models/User";
 import { Car } from "../../models/Car";
 import { Voucher } from "../../models/Voucher";
 import { NotFound } from "../../lib/errors";
+import { format } from "../../lib/voucherCode";
 
 // Operator view of an office. Counts only — no transactions, no ledger, no customers.
 export async function officeHealth(officeId: Types.ObjectId) {
@@ -31,7 +32,7 @@ export async function officeHealth(officeId: Types.ObjectId) {
     userCount,
     redemptions: redemptions.map((v) => ({
       _id: String(v._id),
-      code: v.code,
+      code: format(v.code),
       months: v.months,
       priceLyd: v.priceLyd ?? null,
       redeemedAt: v.redeemedAt,

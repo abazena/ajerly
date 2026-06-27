@@ -8,8 +8,14 @@ export function validate(schema: ZodSchema, source: Source = "body") {
   return (req: Request, _res: Response, next: NextFunction): void => {
     try {
       const data = schema.parse(req[source]);
-      // Reassign — preserves downstream typed access via the schema.
-      (req as unknown as Record<Source, unknown>)[source] = data;
+      // Express 5: req.query/params are prototype getters. Define an own data
+      // property so the validated/coerced/defaulted object is what the route sees.
+      Object.defineProperty(req, source, {
+        value: data,
+        configurable: true,
+        writable: true,
+        enumerable: true,
+      });
       next();
     } catch (err) {
       if (err instanceof ZodError) {

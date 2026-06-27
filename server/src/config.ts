@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const schema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
-  PORT: z.coerce.number().int().positive().default(4000),
+  PORT: z.coerce.number().int().positive().default(4010),
 
   MONGODB_URI: z.string().min(1),
 
@@ -25,7 +25,7 @@ const schema = z.object({
   TRIAL_DAYS: z.coerce.number().int().positive().default(14),
   PRICE_PER_MONTH_LYD: z.coerce.number().positive().default(100),
 
-  CORS_ORIGINS: z.string().default("http://localhost:3000"),
+  CORS_ORIGINS: z.string().default("http://localhost:3010"),
 });
 
 const parsed = schema.safeParse(process.env);

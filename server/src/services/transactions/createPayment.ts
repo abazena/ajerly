@@ -11,6 +11,7 @@ export interface CreatePaymentInput {
   userId: Types.ObjectId;
   customerId: Types.ObjectId;
   amount: number;
+  carId?: Types.ObjectId;
   note?: string;
   date?: Date;
 }
@@ -38,6 +39,7 @@ export async function createPayment(input: CreatePaymentInput): Promise<CreatePa
           customerId: input.customerId,
           kind: "payment",
           amount: input.amount,
+          carId: input.carId,
           note: input.note,
           date,
         },
@@ -52,6 +54,7 @@ export async function createPayment(input: CreatePaymentInput): Promise<CreatePa
           type: "income",
           amount: input.amount,
           customerId: input.customerId,
+          carId: input.carId,
           ledgerEntryId: ledger._id,
           note: input.note ?? "Customer payment",
           date,

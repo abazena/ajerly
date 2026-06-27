@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { Voucher } from "../../models/Voucher";
-import { generateCode } from "../../lib/voucherCode";
+import { generateCode, normalize, format } from "../../lib/voucherCode";
 
 export interface GenerateBatchInput {
   operatorId: Types.ObjectId;
@@ -20,7 +20,9 @@ export async function generateBatch(input: GenerateBatchInput) {
     let attempt = 0;
     let placed = false;
     while (!placed && attempt < MAX_RETRIES) {
-      const code = generateCode();
+      // Store normalized (no dashes) so lookups via normalize() match.
+      // The list endpoint re-formats with dashes for display.
+      const code = normalize(generateCode());
       try {
         const v = await Voucher.create({
           code,
@@ -31,7 +33,8 @@ export async function generateBatch(input: GenerateBatchInput) {
           generatedBy: input.operatorId,
           expiresAt: input.expiresAt,
         });
-        created.push(v.toObject());
+        const obj = v.toObject();
+        created.push({ ...obj, code: format(obj.code) });
         placed = true;
       } catch (err: unknown) {
         if (isDuplicateKeyError(err)) {

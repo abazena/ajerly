@@ -13,6 +13,7 @@ export const chargeSchema = z.object({
 export const paymentSchema = z.object({
   customerId: objectIdSchema,
   amount: moneyMinor,
+  carId: objectIdSchema.optional(),
   note: z.string().max(500).optional(),
   date: z.coerce.date().optional(),
 });

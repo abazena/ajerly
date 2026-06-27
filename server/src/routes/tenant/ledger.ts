@@ -13,6 +13,12 @@ tenantLedgerRouter.get("/ledger", validate(listLedgerQuery, "query"), async (req
     const filter: Record<string, unknown> = { ...withTenant(req), deletedAt: null };
     if (q.type !== "all") filter.type = q.type;
     if (q.cursor) filter._id = { $lt: new Types.ObjectId(q.cursor) };
+    if (q.from || q.to) {
+      const range: Record<string, Date> = {};
+      if (q.from) range.$gte = q.from;
+      if (q.to) range.$lt = q.to;
+      filter.date = range;
+    }
 
     const rows = await Transaction.find(filter)
       .sort({ _id: -1 })

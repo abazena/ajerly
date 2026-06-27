@@ -68,6 +68,7 @@ tenantLedgerEntriesRouter.post(
         userId: req.user._id,
         customerId: new Types.ObjectId(body.customerId),
         amount: body.amount,
+        carId: body.carId ? new Types.ObjectId(body.carId) : undefined,
         note: body.note,
         date: body.date,
       });

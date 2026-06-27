@@ -2,7 +2,7 @@ import { z } from "zod";
 import { moneyMinor, objectIdSchema, cursorQuery } from "./common";
 
 export const createTransactionSchema = z.object({
-  type: z.enum(["income", "expense"]),
+  type: z.enum(["income", "expense", "withdrawal"]),
   amount: moneyMinor,
   carId: objectIdSchema.optional(),
   customerId: objectIdSchema.optional(),
@@ -11,7 +11,7 @@ export const createTransactionSchema = z.object({
 });
 
 export const listTransactionsQuery = cursorQuery.extend({
-  type: z.enum(["income", "expense", "all"]).default("all"),
+  type: z.enum(["income", "expense", "withdrawal", "all"]).default("all"),
   carId: objectIdSchema.optional(),
   customerId: objectIdSchema.optional(),
   from: z.coerce.date().optional(),

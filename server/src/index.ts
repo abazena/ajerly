@@ -1,4 +1,4 @@
-import "./types/express";
+// Global Express types are picked up via tsconfig "include" — no runtime import needed.
 import { config } from "./config";
 import { connectDb } from "./db";
 import { logger } from "./lib/logger";
