@@ -63,7 +63,7 @@ export default function Landing() {
             </p>
             <div className="hero-cta">
               <Link className="primary" href="/signup">ابدأ مجاناً</Link>
-              <a className="secondary" href="#features">شاهد كيف يعمل</a>
+              <Link className="secondary" href="/demo">جرّب النسخة التجريبية</Link>
             </div>
             <div className="hero-trust">
               تجربة مجانية ١٤ يوم. بدون بطاقة.
